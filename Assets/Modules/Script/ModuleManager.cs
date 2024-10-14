@@ -8,6 +8,9 @@ public partial class UserModuleData
 {
 	public DateTime LastLoginDate = DateTime.MinValue;
 	public int LogInDay = 0;
+
+	[Newtonsoft.Json.JsonIgnore]
+	public bool IsNewDay = false;
 }
 
 public class ModuleManager : MonoBehaviour
@@ -53,6 +56,7 @@ public class ModuleManager : MonoBehaviour
 			if (CurrentTime.Date > UserModuleData.LastLoginDate.Date)
 			{
 				UserModuleData.LogInDay++;
+				UserModuleData.IsNewDay = true;
 			}
 		}
 		UserModuleData.LastLoginDate = CurrentTime;

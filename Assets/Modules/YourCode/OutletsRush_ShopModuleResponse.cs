@@ -1,12 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Purchasing;
 
-public class OutletsRush_ShopModuleResponse : BaseModuleResponse
+public class OutletsRush_ShopModuleResponse : BaseModuleResponse<ShopModule>
 {
 	public OutletsRush_ShopModuleResponse()
 	{
-		SKU_List = new List<string> { "subscription1" };
+		SKU_List = new List<string> { "subscription1", "noAds1", "HireCleaner1", "HireSecurity1", "Gem1", "Gem2", "Gem3", "Gem4", "Gem5", "Gem6" };
+	}
+
+	public override void OnIAPProductFetched(ShopModule module, IEnumerable<Product> pl)
+	{
+		foreach (Product p in pl)
+		{
+			switch (p.definition.id)
+			{
+				case "subscription1":
+					module.Subscription1.SetProduct(p);
+					break;
+				case "noAds1":
+					module.NoAds1.SetProduct(p);
+					break;
+				case "HireCleaner1":
+					module.HireCleaner1.SetProduct(p);
+					break;
+				case "HireSecurity1":
+					module.HireSecurity1.SetProduct(p);
+					break;
+				case "Gem1":
+					module.Gem1.SetProduct(p);
+					break;
+				case "Gem2":
+					module.Gem2.SetProduct(p);
+					break;
+				case "Gem3":
+					module.Gem3.SetProduct(p);
+					break;
+				case "Gem4":
+					module.Gem4.SetProduct(p);
+					break;
+				case "Gem5":
+					module.Gem5.SetProduct(p);
+					break;
+				case "Gem6":
+					module.Gem6.SetProduct(p);
+					break;
+
+			}
+		}
 	}
 
 	public override bool CheckAvailable(ResponseClickObject rco)
@@ -22,6 +64,8 @@ public class OutletsRush_ShopModuleResponse : BaseModuleResponse
 			case ShopModuleActionType.PURCHASE_CASH_2:
 				break;
 			case ShopModuleActionType.PURCHASE_CASH_3:
+				break;
+			case ShopModuleActionType.SKIP_DAILY_REWARD:
 				break;
 		}
 		return available;
@@ -57,5 +101,20 @@ public class OutletsRush_ShopModuleResponse : BaseModuleResponse
 		}
 	}
 
-
+	public override int GetCurrency(RewardType type)
+	{
+		int amount = 0;
+		switch (type)
+		{
+			case RewardType.Cash:
+				break;
+			case RewardType.Gem:
+				break;
+			case RewardType.Speed:
+				break;
+			case RewardType.DoubleCash:
+				break;
+		}
+		return amount;
+	}
 }

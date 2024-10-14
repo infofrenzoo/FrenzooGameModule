@@ -12,6 +12,16 @@ public abstract class BaseModule : MonoBehaviour
 	private Action<ModuleActionInfo> OnPurchaseCompleteAction;
 	private ModuleActionInfo BuyInfo;
 
+	public virtual void Init()
+	{
+		ModuleManager.Instance.AddOnGameTick(OnGameTick);
+	}
+	public virtual void OnGameTick()
+	{
+		
+	}
+
+
 	public virtual void OnButtonClicked(ModuleActionInfo bi)
 	{
 
@@ -61,6 +71,13 @@ public abstract class BaseModule : MonoBehaviour
 
 	protected ResponseClickObject CreateResponsePurchaseObject(ModuleActionInfo mai)
 	{
-		return new ResponseClickObject() { EnumShopAction = mai.ShopAction, ContentId = mai.ContentId, RewardGroup = mai.RewardGroup};
+		return new ResponseClickObject() { EnumShopAction = mai.ShopAction, ContentId = mai.ContentId, CostDataAry = mai.CostDataAry, RewardDataAry = mai.RewardDataAry};
+	}
+
+	public GameObject GetChildGameObject(GameObject fromGameObject, string withName)
+	{
+		Transform[] ts = fromGameObject.transform.GetComponentsInChildren<Transform>(true);
+		foreach (Transform t in ts) if (t.gameObject.name == withName) return t.gameObject;
+		return null;
 	}
 }

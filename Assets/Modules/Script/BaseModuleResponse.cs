@@ -2,7 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Purchasing;
 
+
+[Serializable]
 public class RewardGroup
 {
 	public List<RewardData> RewardDataList { get; private set; }
@@ -32,10 +35,11 @@ public class ResponseClickObject
 {
 	public int ContentId;
 	public ShopModuleActionType EnumShopAction;
-	public RewardGroup RewardGroup;
+	public RewardData[] CostDataAry;
+	public RewardData[] RewardDataAry;
 }
 
-public abstract class BaseModuleResponse 
+public abstract class BaseModuleResponse<T> where T : BaseModule
 {
 	public List<string> SKU_List;
 
@@ -47,6 +51,18 @@ public abstract class BaseModuleResponse
 	abstract public bool CheckAvailable(ResponseClickObject rpo);
 	abstract public bool Spend(ResponseClickObject rpo);
 	abstract public void Earn(ResponseClickObject rpo);
+	/// <summary>
+	/// Get the amount
+	/// </summary>
+	/// <param name="type"></param>
+	/// <returns></returns>
+	abstract public int GetCurrency(RewardType type);
+	/// <summary>
+	/// Link IAP Product to UI
+	/// </summary>
+	/// <param name="module"></param>
+	/// <param name="pl"></param>
+	abstract public void OnIAPProductFetched(T module, IEnumerable<Product> pl);
 
 
 }

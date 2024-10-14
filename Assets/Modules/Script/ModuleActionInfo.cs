@@ -6,9 +6,12 @@ using UnityEngine.Purchasing;
 using TMPro;
 public class ModuleActionInfo : MonoBehaviour
 {
-	#region Data
-	public ShopModuleActionType ShopAction;
+    #region Data
+    public ShopModuleActionType ShopAction;
     public int ContentId; //can be 0
+    public RewardData[] CostDataAry;
+    public RewardData[] RewardDataAry;
+    [SerializeField]
     public RewardGroup RewardGroup;
     [HideInInspector]
     public Product Product;
@@ -18,6 +21,10 @@ public class ModuleActionInfo : MonoBehaviour
     public TMP_Text Text;
     //Dont Edit Product
 
+    public void SetProduct(Product product)
+    {
+        Text.text = product.metadata.localizedPriceString;
+    }
 
     void Start()
     {
