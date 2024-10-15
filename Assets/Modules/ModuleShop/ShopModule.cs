@@ -4,9 +4,11 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Purchasing;
 using System;
+using System.Linq;
 
 public partial class UserModuleData
 {
+	public DateTime Subscription1EndDate = DateTime.MinValue;
 	public bool IsPurchasedSubscription = false;
 	public bool IsPurchasedNoAds = false;
 	public bool IsPurchasedCleaner1 = false;
@@ -88,7 +90,26 @@ public class ShopModule : BaseModule, IGameEvent
 
 		EventController.Instance.AddController(this);
 		CheckDailyReward();
+		AddScriptionAbility();
 		UpdateUI();
+	}
+
+	private void AddScriptionAbility()
+	{
+		if (ModuleManager.Instance.CurrentTime.Date <= UserModuleData.Subscription1EndDate.Date)
+		{
+			ModuleResponse.Earn(Subscription1.RewardDataAry.Where(x => x.RewardType == RewardType.MoveSpeed || x.RewardType == RewardType.CashMultiplier).ToArray());
+		}
+		else
+		{
+			if (UserModuleData.IsPurchasedSubscription)
+			{
+				UserModuleData.IsPurchasedSubscription = false;
+				ModuleManager.Instance.SaveUserModuleData();
+
+			}
+
+		}
 	}
 
 	public override void OnGameTick()
@@ -106,8 +127,15 @@ public class ShopModule : BaseModule, IGameEvent
 			if (DailyRewardTimer.transform.parent.gameObject.activeSelf)
 			{
 				UpdateUI();
+				ModuleButton?.UpdateBadge(1);
 			}
 		}
+
+	}
+
+	protected override void OnEnable()
+	{
+		base.OnEnable();
 
 	}
 
@@ -192,6 +220,7 @@ public class ShopModule : BaseModule, IGameEvent
 		{
 			case ShopModuleActionType.PURCHASE_SUBSCRIPTION_1:
 				UserModuleData.IsPurchasedSubscription = true;
+				UserModuleData.Subscription1EndDate = ModuleManager.Instance.CurrentTime.AddDays(30);
 				break;
 			case ShopModuleActionType.PURCHASE_NO_ADS_1:
 				UserModuleData.IsPurchasedNoAds = true;
@@ -212,8 +241,9 @@ public class ShopModule : BaseModule, IGameEvent
 		base.UpdateUI();
 		//update cash/gem;
 		Subscription1?.gameObject.SetActive(!UserModuleData.IsPurchasedSubscription);
-		NoAds1?.gameObject.SetActive(!UserModuleData.IsPurchasedSubscription);
-		HireCleaner1?.gameObject.SetActive(!UserModuleData.IsPurchasedSubscription);
+		NoAds1?.gameObject.SetActive(!UserModuleData.IsPurchasedNoAds);
+		HireCleaner1?.gameObject.SetActive(!UserModuleData.IsPurchasedCleaner1);
+		HireSecurity1?.gameObject.SetActive(!UserModuleData.IsPurchasedSecurity1);
 		DateTime now = ModuleManager.Instance.CurrentTime.AddSeconds(1);
 		DailyRewardTimer.transform.parent.gameObject.SetActive(UserModuleData.NextDailyReward >= now);
 		SkipDailyReward.gameObject.SetActive(UserModuleData.NextDailyReward >= now);

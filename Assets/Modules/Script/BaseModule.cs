@@ -7,6 +7,7 @@ using UnityEngine.Purchasing;
 public abstract class BaseModule : MonoBehaviour
 {
 	public GameObject Panel;
+	public ModuleButton ModuleButton;
 	public bool IsFetchingProduct = false;
 	private Action<Product, PurchaseFailureReason> OnPurchaseFailAction;
 	private Action<ModuleActionInfo> OnPurchaseCompleteAction;
@@ -79,5 +80,10 @@ public abstract class BaseModule : MonoBehaviour
 		Transform[] ts = fromGameObject.transform.GetComponentsInChildren<Transform>(true);
 		foreach (Transform t in ts) if (t.gameObject.name == withName) return t.gameObject;
 		return null;
+	}
+
+	protected virtual void OnEnable()
+	{
+		
 	}
 }

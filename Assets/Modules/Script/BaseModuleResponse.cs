@@ -50,7 +50,7 @@ public abstract class BaseModuleResponse<T> where T : BaseModule
 	/// <returns></returns>
 	abstract public bool CheckAvailable(ResponseClickObject rpo);
 	abstract public bool Spend(ResponseClickObject rpo);
-	abstract public void Earn(ResponseClickObject rpo);
+	abstract public void Earn(params RewardData[] rewards);
 	/// <summary>
 	/// Get the amount
 	/// </summary>
@@ -64,5 +64,8 @@ public abstract class BaseModuleResponse<T> where T : BaseModule
 	/// <param name="pl"></param>
 	abstract public void OnIAPProductFetched(T module, IEnumerable<Product> pl);
 
-
+	public virtual void Earn(ResponseClickObject rpo)
+	{
+		Earn(rpo.RewardDataAry);
+	}
 }

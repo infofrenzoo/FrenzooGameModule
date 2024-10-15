@@ -87,17 +87,24 @@ public class OutletsRush_ShopModuleResponse : BaseModuleResponse<ShopModule>
 		return spent;
 	}
 
-	public override void Earn(ResponseClickObject rco)
+	public override void Earn(params RewardData[] rewards)
 	{
-		Debug.Log("Earn " + rco.EnumShopAction);
-		switch (rco.EnumShopAction)
+		//Debug.Log("Earn " + rco.EnumShopAction);
+		foreach (var reward in rewards)
 		{
-			case ShopModuleActionType.NONE:
-				break;
-			case ShopModuleActionType.PURCHASE_SUBSCRIPTION_1:
-				break;
-			case ShopModuleActionType.PURCHASE_CLEANER_1:
-				break;
+			switch (reward.RewardType)
+			{
+				case RewardType.None:
+					break;
+				case RewardType.Cash:
+					break;
+				case RewardType.Gem:
+					break;
+				case RewardType.MoveSpeed:
+					break;
+				case RewardType.CashMultiplier:
+					break;
+			}
 		}
 	}
 
@@ -110,9 +117,9 @@ public class OutletsRush_ShopModuleResponse : BaseModuleResponse<ShopModule>
 				break;
 			case RewardType.Gem:
 				break;
-			case RewardType.Speed:
+			case RewardType.MoveSpeed:
 				break;
-			case RewardType.DoubleCash:
+			case RewardType.CashMultiplier:
 				break;
 		}
 		return amount;
