@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9d1c74735dd324099a23e04791d2c4, type: 3}
+  m_Name: OutletsRush_LevelAsset
+  m_EditorClassIdentifier: 
+  LevelInfoList:
+  - LevelId: 1
+    RequireXp: 100
+    TotalXp: 0
+    Rewards:
+    - RewardType: 1
+      Amount: 100
+      ContentId: 0
+    - RewardType: 2
+      Amount: 1
+      ContentId: 0
+  - LevelId: 2
+    RequireXp: 100
+    TotalXp: 100
+    Rewards:
+    - RewardType: 1
+      Amount: 100
+      ContentId: 0
+  - LevelId: 3
+    RequireXp: 100
+    TotalXp: 200
+    Rewards: []
+  - LevelId: 4
+    RequireXp: 100
+    TotalXp: 300
+    Rewards: []
+  - LevelId: 5
+    RequireXp: 100
+    TotalXp: 400
+    Rewards: []
+  - LevelId: 6
+    RequireXp: 100
+    TotalXp: 500
+    Rewards: []
+  - LevelId: 7
+    RequireXp: 100
+    TotalXp: 600
+    Rewards: []
+  - LevelId: 8
+    RequireXp: 100
+    TotalXp: 700
+    Rewards: []
+  - LevelId: 9
+    RequireXp: 100
+    TotalXp: 800
+    Rewards: []
+  - LevelId: 10
+    RequireXp: 100
+    TotalXp: 900
+    Rewards: []

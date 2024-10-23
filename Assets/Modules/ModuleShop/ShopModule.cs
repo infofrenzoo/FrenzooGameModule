@@ -45,6 +45,7 @@ public enum ShopModuleActionType
 
 public class ShopModule : BaseModule, IGameEvent
 {
+
 	public static ShopModule Instance;
 	public void Awake()
 	{
@@ -55,7 +56,6 @@ public class ShopModule : BaseModule, IGameEvent
 
 	}
 
-	public UserModuleData UserModuleData => ModuleManager.Instance.UserModuleData;
 	public TMP_Text COIN;
 	public TMP_Text GEM;
 	public ModuleActionInfo Subscription1;
@@ -77,11 +77,15 @@ public class ShopModule : BaseModule, IGameEvent
 	public ModuleActionInfo DailyReward4;
 	public ModuleActionInfo SkipDailyReward;
 	public TMP_Text DailyRewardTimer;
-	public BaseModuleResponse<ShopModule> ModuleResponse { get; private set; }
-	public void Init(BaseModuleResponse<ShopModule> mr)
+
+	public override void Init(BaseModuleResponse mr) 
 	{
-		base.Init();
-		ModuleResponse = mr;
+		base.Init(mr);
+		if (ModuleResponse == null)
+			Debug.Log("ModuleResponse null");
+		else if (ModuleResponse.SKU_List == null)
+			Debug.Log("SKU_List null");
+
 		FetchAdditionProduct(ModuleResponse.SKU_List, (pl) =>
 		{
 			ModuleResponse.OnIAPProductFetched(this, pl);
@@ -308,12 +312,12 @@ public class ShopModule : BaseModule, IGameEvent
 		ModuleManager.Instance.SaveUserModuleData();
 	}
 
-	public void ReachLevel(int level)
+	public void OnReachLevel(int level)
 	{
-		throw new System.NotImplementedException();
+		//throw new System.NotImplementedException();
 	}
 
-	public void EarnReward(RewardData rd)
+	public void OnEarnReward(RewardData rd)
 	{
 		switch (rd.RewardType)
 		{
@@ -328,7 +332,7 @@ public class ShopModule : BaseModule, IGameEvent
 		}
 	}
 
-	public void SpendReward(RewardData rd)
+	public void OnSpendReward(RewardData rd)
 	{
 		switch (rd.RewardType)
 		{
@@ -343,4 +347,8 @@ public class ShopModule : BaseModule, IGameEvent
 		}
 	}
 
+	public void OnEarnXP(int xp)
+	{
+		//throw new NotImplementedException();
+	}
 }

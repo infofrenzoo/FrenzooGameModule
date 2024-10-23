@@ -48,3 +48,4 @@ public class RewardData
 		return $"{RewardType.ToString()}, amount:{Amount}, contentId:{ContentId}";
 	}
 }
+

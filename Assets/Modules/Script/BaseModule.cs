@@ -6,12 +6,21 @@ using UnityEngine.Purchasing;
 
 public abstract class BaseModule : MonoBehaviour
 {
+	public UserModuleData UserModuleData => ModuleManager.Instance.UserModuleData;
+
 	public GameObject Panel;
 	public ModuleButton ModuleButton;
 	public bool IsFetchingProduct = false;
 	private Action<Product, PurchaseFailureReason> OnPurchaseFailAction;
 	private Action<ModuleActionInfo> OnPurchaseCompleteAction;
 	private ModuleActionInfo BuyInfo;
+	protected BaseModuleResponse ModuleResponse { get; private set; }
+
+	public virtual void Init(BaseModuleResponse mr)
+	{
+		ModuleResponse = mr;
+		Init();
+	}
 
 	public virtual void Init()
 	{

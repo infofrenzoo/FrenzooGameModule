@@ -39,7 +39,7 @@ public class ResponseClickObject
 	public RewardData[] RewardDataAry;
 }
 
-public abstract class BaseModuleResponse<T> where T : BaseModule
+public abstract class BaseModuleResponse
 {
 	public List<string> SKU_List;
 
@@ -62,7 +62,7 @@ public abstract class BaseModuleResponse<T> where T : BaseModule
 	/// </summary>
 	/// <param name="module"></param>
 	/// <param name="pl"></param>
-	abstract public void OnIAPProductFetched(T module, IEnumerable<Product> pl);
+	abstract public void OnIAPProductFetched(BaseModule module, IEnumerable<Product> pl);
 
 	public virtual void Earn(ResponseClickObject rpo)
 	{

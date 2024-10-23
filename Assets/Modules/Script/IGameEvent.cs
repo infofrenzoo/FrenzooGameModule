@@ -4,11 +4,13 @@ using UnityEngine;
 
 public interface IGameEvent
 {
-    public void ReachLevel(int level);
+    public void OnEarnXP(int xp);
 
-    public void EarnReward(RewardData rd);
+    public void OnReachLevel(int level);
 
-    public void SpendReward(RewardData rd);
+    public void OnEarnReward(RewardData rd);
+
+    public void OnSpendReward(RewardData rd);
 
 
 }

@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
-public class OutletsRush_ShopModuleResponse : BaseModuleResponse<ShopModule>
+public class OutletsRush_ShopModuleResponse : BaseModuleResponse
 {
 	public OutletsRush_ShopModuleResponse()
 	{
 		SKU_List = new List<string> { "subscription1", "noAds1", "HireCleaner1", "HireSecurity1", "Gem1", "Gem2", "Gem3", "Gem4", "Gem5", "Gem6" };
 	}
 
-	public override void OnIAPProductFetched(ShopModule module, IEnumerable<Product> pl)
+	public override void OnIAPProductFetched(BaseModule bmodule, IEnumerable<Product> pl)
 	{
+		ShopModule module = (ShopModule)bmodule;
 		foreach (Product p in pl)
 		{
 			switch (p.definition.id)

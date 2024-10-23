@@ -35,7 +35,7 @@ public class CollectDependencies : EditorWindow
 				{
 					if (image.sprite != null)
 					{
-						Sprite t = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Modules/Images/{image.sprite.name}.png", typeof(Sprite));
+						Sprite t = (Sprite)AssetDatabase.LoadAssetAtPath($"Assets/Modules/Images2/{image.sprite.name}.png", typeof(Sprite));
 						if (t != null)
 						{
 							image.sprite = t;

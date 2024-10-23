@@ -23,35 +23,46 @@ public partial class EventController : MonoBehaviour, IGameEvent
         IEventList.Add(controller);
     }
 
-	public void ReachLevel(int level)
+	public void OnReachLevel(int level)
 	{
 		System.Threading.Tasks.Task.Run(() =>
 		   {
 			   for (int i = 0; i < IEventList.Count; i++)
 			   {
-				   IEventList[i].ReachLevel(level);
+				   IEventList[i].OnReachLevel(level);
 			   }
 		   });
 	}
 
-	public void EarnReward(RewardData rd)
+	public void OnEarnReward(RewardData rd)
 	{
 		System.Threading.Tasks.Task.Run(() =>
 		{
 			for (int i = 0; i < IEventList.Count; i++)
 			{
-				IEventList[i].EarnReward(rd);
+				IEventList[i].OnEarnReward(rd);
 			}
 		});
 	}
 
-	public void SpendReward(RewardData rd)
+	public void OnSpendReward(RewardData rd)
 	{
 		System.Threading.Tasks.Task.Run(() =>
 		{
 			for (int i = 0; i < IEventList.Count; i++)
 			{
-				IEventList[i].SpendReward(rd);
+				IEventList[i].OnSpendReward(rd);
+			}
+		});
+	}
+
+	public void OnEarnXP(int xp)
+	{
+		System.Threading.Tasks.Task.Run(() =>
+		{
+			for (int i = 0; i < IEventList.Count; i++)
+			{
+				IEventList[i].OnEarnXP(xp);
 			}
 		});
 	}

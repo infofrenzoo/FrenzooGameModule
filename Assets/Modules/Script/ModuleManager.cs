@@ -9,6 +9,11 @@ public partial class UserModuleData
 	public DateTime LastLoginDate = DateTime.MinValue;
 	public int LogInDay = 0;
 
+	public async void Save()
+	{
+		string dString = await Task<string>.Run(() => Newtonsoft.Json.JsonConvert.SerializeObject(this));
+		PlayerPrefs.SetString("UserModuleData", dString);
+	}
 }
 
 public class ModuleManager : MonoBehaviour
@@ -40,7 +45,9 @@ public class ModuleManager : MonoBehaviour
 		UpdateUserModuleData();
 		Debug.Log(UserModuleData.LastLoginDate);
 		IAPManager.Instance.Init();
+
 		ShopModule.Instance.Init(new OutletsRush_ShopModuleResponse());
+		LevelingModule.Instance.Init(new OutletsRush_LevelingModuleResponse());
 	}
 
 	void UpdateUserModuleData()
@@ -61,10 +68,9 @@ public class ModuleManager : MonoBehaviour
 
 	}
 
-	public async void SaveUserModuleData()
+	public void SaveUserModuleData()
 	{
-		string dString = await Task<string>.Run(() => Newtonsoft.Json.JsonConvert.SerializeObject(UserModuleData));
-		PlayerPrefs.SetString("UserModuleData", dString);
+		UserModuleData.Save();
 	}
 
 	class SkipFrameValues
