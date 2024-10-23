@@ -145,6 +145,7 @@ public class LevelingModule : BaseModule
 		int x = UserModuleData.UserXP - CurrentLevel.TotalXp;
 		int reqXP = CurrentLevel.RequireXp;
 		BarSlider.maxValue = reqXP;
+
 		BarSlider.value = isLastLevel ? reqXP : x;
 		BarXPText.text = isLastLevel ? "MAX" : string.Format("{0} / {1}", x, reqXP);
 		PanelLevelText.text = BarLevelText.text = CurrentLevel.LevelId.ToString();
