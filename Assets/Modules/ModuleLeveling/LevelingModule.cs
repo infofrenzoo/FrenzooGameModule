@@ -140,14 +140,26 @@ public class LevelingModule : BaseModule
 	protected override void UpdateUI()
 	{
 		base.UpdateUI();
+
 		Debug.Log("XP: " + UserModuleData.UserXP);
 		bool isLastLevel = IsLastLevel();
 		int x = UserModuleData.UserXP - CurrentLevel.TotalXp;
 		int reqXP = CurrentLevel.RequireXp;
 		BarSlider.maxValue = reqXP;
 
-		BarSlider.value = isLastLevel ? reqXP : x;
-		BarXPText.text = isLastLevel ? "MAX" : string.Format("{0} / {1}", x, reqXP);
+		if (isLastLevel)
+		{
+			BarSlider.value = reqXP;
+			BarXPText.text = "MAX";
+		}
+		else
+		{
+			DG.Tweening.DOTween.To(() => BarSlider.value, v => 
+			{
+				BarSlider.value = v;
+				BarXPText.text = string.Format("{0} / {1}", (int)v, reqXP);
+			}, x, .7f);
+		}
 		PanelLevelText.text = BarLevelText.text = CurrentLevel.LevelId.ToString();
 
 		foreach (RewardGameObject go in PanelRewardGameObjectList)
